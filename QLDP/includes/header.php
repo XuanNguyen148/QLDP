@@ -6,7 +6,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once __DIR__ . '/../config/database.php';
 ?>
-<?php include_once __DIR__ . '/components/chatbot.php'; ?>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -15,13 +14,14 @@ require_once __DIR__ . '/../config/database.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý đặt phòng</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="../css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/chatbot.css">
+    <link href="/QLDP/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="/QLDP/assets/css/chatbot.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="../assets/js/chatbot.js" defer></script>
-    <script src="../js/scripts.js" defer></script>
+    <script src="/QLDP/assets/js/chatbot.js" defer></script>
+    <script src="/QLDP/js/scripts.js" defer></script>
 </head>
 <body class="bg-gray-100">
+    <?php include_once __DIR__ . '/components/chatbot.php'; ?>
     <nav class="bg-blue-600 p-4 text-white shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-xl font-bold">Quản lý đặt phòng</h1>

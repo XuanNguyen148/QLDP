@@ -6,6 +6,16 @@ class Chatbot {
         this.input = document.querySelector('.chatbot-input input');
         this.sendButton = document.querySelector('.send-button');
         
+        // Đảm bảo các phần tử tồn tại
+        if (!this.container || !this.trigger || !this.messagesContainer || !this.input || !this.sendButton) {
+            console.error('Không tìm thấy các phần tử cần thiết cho chatbot');
+            return;
+        }
+
+        // Hiển thị nút trigger mặc định
+        this.trigger.style.display = 'flex';
+        this.container.style.display = 'none';
+        
         this.initializeEventListeners();
         this.initializeDraggable();
     }
@@ -23,10 +33,13 @@ class Chatbot {
     }
 
     toggleChat() {
-        this.container.style.display = 
-            this.container.style.display === 'none' ? 'block' : 'none';
-        this.trigger.style.display = 
-            this.trigger.style.display === 'none' ? 'flex' : 'none';
+        if (this.container.style.display === 'none') {
+            this.container.style.display = 'block';
+            this.trigger.style.display = 'none';
+        } else {
+            this.container.style.display = 'none';
+            this.trigger.style.display = 'flex';
+        }
     }
 
     async sendMessage() {
@@ -38,6 +51,7 @@ class Chatbot {
         this.input.value = '';
 
         try {
+            console.log('Sending message:', message);
             const response = await fetch('/QLDP/chatbot/process.php', {
                 method: 'POST',
                 headers: {
@@ -45,10 +59,22 @@ class Chatbot {
                 },
                 body: `message=${encodeURIComponent(message)}`
             });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const data = await response.json();
+            console.log('Received response:', data);
+            
+            if (!data.response) {
+                throw new Error('Invalid response format');
+            }
+            
             this.addMessage(data.response, 'bot-message');
         } catch (error) {
-            this.addMessage('Xin lỗi, có lỗi xảy ra!', 'bot-message');
+            console.error('Error:', error);
+            this.addMessage('Xin lỗi, có lỗi xảy ra! Chi tiết: ' + error.message, 'bot-message');
         }
     }
 
@@ -98,4 +124,7 @@ class Chatbot {
 }
 
 // Initialize chatbot when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => new Chatbot());
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Initializing chatbot...');
+    new Chatbot();
+});
