@@ -1,0 +1,25 @@
+.table-auto th, .table-auto td {
+    padding: 12px;
+    text-align: left;
+}
+.table-auto th {
+    background-color: #2563eb;
+    color: white;
+}
+.table-auto tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+.table-auto tr:hover {
+    background-color: #e5e7eb;
+}
+.form-input, .form-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
